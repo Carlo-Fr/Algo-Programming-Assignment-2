@@ -9,7 +9,22 @@ def fifo(k, requests):
 
 def lru(k, requests):
     misses = 0
-    # Add logic
+    # Use a list for our cahce
+    cache = []
+
+    for req in requests:
+        if req in cache:
+            # If the request is already in the cache, we remove it and add it to the end of the list, basically making it the most recently used
+            cache.remove(req)
+            cache.append(req)
+        else:
+            # If there is a miss, we increment the amount of misses
+            misses += 1
+            # If the cache is full, we pop the element in the front as it is least recently used
+            if len(cache) == k:
+                cache.pop(0)
+            # Append the request
+            cache.append(req)
     return misses
 
 def optff(k, requests):
