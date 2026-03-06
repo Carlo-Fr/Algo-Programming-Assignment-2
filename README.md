@@ -6,7 +6,10 @@
 * 
 
 ## Compilation & Execution
+[Add instructions later once completed]
 
 ## Assumptions
+[Add in assumptions once needed]
 
 ## Written Solutions
+[Add in solutions to written problems]
