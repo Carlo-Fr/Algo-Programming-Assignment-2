@@ -42,7 +42,35 @@ def lru(k, requests):
 
 def optff(k, requests):
     misses = 0
-    # Add logic
+    cache = []
+
+    for i, req in enumerate(requests):
+        if req in cache:
+            # Hit so do nothing
+            pass
+        else:
+            # MISS
+            misses += 1
+
+            if len(cache) == k:
+                farthest_index = -1  # farthest next use in future slice
+                item_to_remove = None
+                future_requests = requests[i + 1:]
+
+                for cached_item in cache:
+                    if cached_item in future_requests:
+                        next_use = future_requests.index(cached_item)
+                        if next_use > farthest_index:
+                            farthest_index = next_use
+                            item_to_remove = cached_item
+                    
+                    else:
+                        item_to_remove = cached_item
+                        break
+                
+                cache.remove(item_to_remove)
+            cache.append(req)
+    
     return misses
 
 # Main and parsing
