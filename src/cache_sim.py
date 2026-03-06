@@ -4,7 +4,20 @@ import sys
 
 def fifo(k, requests):
     misses = 0
-    # Add logic
+    # Use List for the cache
+    cache = []
+
+    for req in requests:
+        if req in cache:
+            # Hit so do nothing
+            pass
+        else:
+            # Miss
+            misses += 1
+            if len(cache) == k:
+                cache.pop(0)
+            # Add the item to the back
+            cache.append(req)
     return misses
 
 def lru(k, requests):
