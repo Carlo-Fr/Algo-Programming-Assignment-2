@@ -9,7 +9,10 @@
 [Add instructions later once completed]
 
 ## Assumptions
-[Add in assumptions once needed]
+* **Environment:** The scripts are written in Python 3. It utilizes f-strings for the terminal output, so it is assumed the testing environment is running on a similar version.
+* **Dependencies:** The code uses only standard Python libraries (`sys`). There are no external packages/installations required.
+* **Input Formatting:** The input file contains only valid, whitespace-separated integers. It assumes the first integer is the cache capacity `k`, the second integer is the total number of requests `m`, and all subsequent integers are the request sequence.
+* **OPTFF Tie-Breaking:** If the cache is full and the OPTFF algorithm identifies multiple items in the cache that will never be requested again, it assumes evicting any of those items is equally optimal, and it simply evicts the first one it finds.
 
 ## Written Solutions
 
