@@ -60,7 +60,7 @@ We can prove that OPTFF is optimal using an exchange argument. Let `A` be any op
 
 1. **Assume a Divergence:** Suppose the algorithm `A` and OPTFF process requests identicaly and have the exact same cache state up to step `i`. At step `i`, a cache miss happens, the cache is full, and they make different evictions.
 2. **The Eviction:** OPTFF evicts the item `x` (the item whose next request is strictly farthest in the future, or never actually happens). Algorithm `A` evicts item `y` (y!=x). After step `i`, OPTFF's cache has `y` but not `x`, while `A`'s cache has `x` but not `y`.
-3. **Constructing $A'$:** Let us construct a new offline algorithm `A'` that makes the exact same choices as `A`, except at step `i`, it evicts `x` instead of `y`. 
+3. **Constructing `A'`:** Let us construct a new offline algorithm `A'` that makes the exact same choices as `A`, except at step `i`, it evicts `x` instead of `y`. 
 4. **Comparing Misses:**
    * Because `x` is the item requested farthest in the future by the actual definition, we know that if both `x` and `y` are requested again `y` will be requested before `x`.
    * When `y` is eventually requested, algorithm `A` will have a cache miss because it evicted `y`. Algorithm `A'`, still kept `y` in the cache. `A'` can simply evict `x` to match `A`'s exact cache state from now on.
