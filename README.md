@@ -7,7 +7,16 @@
 (UFID in Canvas Comments)
 
 ## Compilation & Execution
-[Add instructions later once completed]
+
+* Windows:
+```powershell
+python src/cache_sim.py data/file2.in
+```
+
+* Mac:
+```bash
+python3 src/cache_sim.py data/file2.in
+```
 
 ## Assumptions
 * **Environment:** The scripts are written in Python 3. It utilizes f-strings for the terminal output, so it is assumed the testing environment is running on a similar version.
