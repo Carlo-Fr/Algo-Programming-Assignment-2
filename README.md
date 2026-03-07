@@ -12,4 +12,29 @@
 [Add in assumptions once needed]
 
 ## Written Solutions
-[Add in solutions to written problems]
+
+### Question 1: Empirical Comparison
+
+| Input File | k | m | FIFO | LRU | OPTFF |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| File1.in | 3 | 50 | 50 | 50 | 19 |
+| File2.in | 8 | 50 | 48 | 48 | 32 |
+| File3.in | 12 | 50 | 35 | 30 | 20 |
+
+**Does OPTFF have the fewest misses?**
+Yes, OPTFF has the fewest misses across all three test files. This was expected since it is the optimal algorithm that can see ahead. It looks ahead at the future request sequence to make the best eviction choice, meaning it is impossible for LRU or FIFO to beat it.
+
+**How does FIFO compare to LRU?**
+In File 3, where numbers are grouped and repeated near each other, LRU performs noticeably better than FIFO (30 vs 35 misses). However, in File 1 (a repeating loop larger than the cache) and File 2 (mostly random requests), LRU and FIFO perform identically because the recent past doesn't offer a predictable advantage for those specific sequences. In many real world scenarios where recently used items are more likely to be frequently used, LRU would do better.
+
+---
+
+### Question 2: Bad Sequence for LRU or FIFO
+
+**Sequence:** `1, 2, 3, 4, 1` with a cache capacity of `k = 3` (look at question2.in and question2.out files).
+
+* **LRU Miss Count:** 5
+* **OPTFF Miss Count:** 4
+
+**Explanation:**
+In this sequence, LRU misses on every single request. When the cache becomes full `[1, 2, 3]` and `4` is requested, LRU evicts `1` because it is the oldest. Then, the next request is `1`, causing another miss. OPTFF incurs strictly fewer misses because it looks ahead. When `4` is requested, OPTFF looks into the future array and sees that `1` will be needed next, but `2` and `3` will never be used again. Therefore, it evicts `2` (or it could also do `3`), keeping `1` safely in the cache. When `1` is called on the final step, OPTFF registers a hit.
