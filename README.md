@@ -2,8 +2,9 @@
 # Cache Eviction Policy Simulator
 
 ## Team Members
-* Carlo Fraley (Enter UFID later)
-* 
+* Carlo Fraley
+* Kavi Patel
+(UFID in Canvas Comments)
 
 ## Compilation & Execution
 [Add instructions later once completed]
@@ -41,3 +42,18 @@ In File 3, where numbers are grouped and repeated near each other, LRU performs 
 
 **Explanation:**
 In this sequence, LRU misses on every single request. When the cache becomes full `[1, 2, 3]` and `4` is requested, LRU evicts `1` because it is the oldest. Then, the next request is `1`, causing another miss. OPTFF incurs strictly fewer misses because it looks ahead. When `4` is requested, OPTFF looks into the future array and sees that `1` will be needed next, but `2` and `3` will never be used again. Therefore, it evicts `2` (or it could also do `3`), keeping `1` safely in the cache. When `1` is called on the final step, OPTFF registers a hit.
+
+---
+
+### Question 3: Prove OPTFF is Optimal
+
+We can prove that OPTFF is optimal using an exchange argument. Let `A` be any optimal offline algorithm that knows the full request sequence. We can show that we can transform `A` into OPTFF without increasing the total number of misses.
+
+1. **Assume a Divergence:** Suppose the algorithm `A` and OPTFF process requests identicaly and have the exact same cache state up to step `i`. At step `i`, a cache miss happens, the cache is full, and they make different evictions.
+2. **The Eviction:** OPTFF evicts the item `x` (the item whose next request is strictly farthest in the future, or never actually happens). Algorithm `A` evicts item `y` (y!=x). After step `i`, OPTFF's cache has `y` but not `x`, while `A`'s cache has `x` but not `y`.
+3. **Constructing $A'$:** Let us construct a new offline algorithm `A'` that makes the exact same choices as `A`, except at step `i`, it evicts `x` instead of `y`. 
+4. **Comparing Misses:**
+   * Because `x` is the item requested farthest in the future by the actual definition, we know that if both `x` and `y` are requested again `y` will be requested before `x`.
+   * When `y` is eventually requested, algorithm `A` will have a cache miss because it evicted `y`. Algorithm `A'`, still kept `y` in the cache. `A'` can simply evict `x` to match `A`'s exact cache state from now on.
+   * If `x` is never requested again evicting it early (like OPTFF and `A'` did) causes no future misses.
+5. **Conclusion:** In all scenarios, the modified algorithm `A'` has misses less than or equal to `A`. By repeatedly applying this exchange step at every point where the algorithms are different, we can completely transform `A` into OPTFF without increasing the total miss count. Therefore the number of misses of OPTFF is actually less than or equal to any offline algorithm `A`, therefore proving OPTFF is optimal.
