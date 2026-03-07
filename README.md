@@ -7,6 +7,7 @@
 (UFID in Canvas Comments)
 
 ## Compilation & Execution
+Since this program is written in Python, no explicit compilation is necessary. To execute the simulator, use the format below and replace `data/file2.in` with the actual path to the input file you want to test.
 
 * Windows:
 ```powershell
